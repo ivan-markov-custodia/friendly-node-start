@@ -1,8 +1,10 @@
+'use client';
+
 import { useState } from 'react';
 
 const API_KEY = 'aee631b1ce904f589c242927251907'; 
 
-function App() {
+export default function Home() {
   const [city, setCity] = useState('');
   const [weather, setWeather] = useState(null);
   const [error, setError] = useState('');
@@ -57,7 +59,7 @@ function App() {
     }
 
     try {
-      const response = await fetch(`/api/v1/current.json?key=${API_KEY}&q=${city}`);
+      const response = await fetch(`/api/weather/v1/current.json?key=${API_KEY}&q=${city}`);
       if (!response.ok) {
         throw new Error('City not found');
       }
@@ -123,5 +125,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
