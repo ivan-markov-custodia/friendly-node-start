@@ -6,6 +6,47 @@ function App() {
   const [city, setCity] = useState('');
   const [weather, setWeather] = useState(null);
   const [error, setError] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [loginError, setLoginError] = useState('');
+  const [protectedData, setProtectedData] = useState('');
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setLoginError('');
+    setProtectedData('');
+
+    try {
+      const response = await fetch('/auth-api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ user: username, password }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Login failed. Please check your credentials.');
+      }
+
+      const { token } = await response.json();
+
+      const protectedResponse = await fetch('/auth-api/protected', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!protectedResponse.ok) {
+        throw new Error('Failed to fetch protected data.');
+      }
+
+      const data = await protectedResponse.text();
+      setProtectedData(data);
+    } catch (err) {
+      setLoginError(err.message);
+    }
+  };
 
   const fetchWeather = async (e) => {
     e.preventDefault();
@@ -31,6 +72,32 @@ function App() {
 
   return (
     <div style={{ fontFamily: 'Arial, sans-serif', padding: '20px', maxWidth: '500px', margin: 'auto' }}>
+      <h1>Login</h1>
+      <form onSubmit={handleLogin} style={{ marginBottom: '20px' }}>
+        <input
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          placeholder="Username"
+          style={{ padding: '10px', width: 'calc(50% - 60px)', marginRight: '10px' }}
+        />
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+          style={{ padding: '10px', width: 'calc(50% - 60px)', marginRight: '10px' }}
+        />
+        <button type="submit" style={{ padding: '10px' }}>Login</button>
+      </form>
+      {loginError && <p style={{ color: 'red' }}>{loginError}</p>}
+      {protectedData && (
+        <div>
+          <h3>Protected Data:</h3>
+          <p>{protectedData}</p>
+        </div>
+      )}
+      <hr style={{ margin: '20px 0' }} />
       <h1>Weather App</h1>
       <form onSubmit={fetchWeather} style={{ marginBottom: '20px' }}>
         <input
