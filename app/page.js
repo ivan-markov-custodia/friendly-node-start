@@ -93,6 +93,7 @@ export default function Home() {
         <button type="submit" style={{ padding: '10px' }}>Login</button>
       </form>
       {loginError && <p style={{ color: 'red' }}>{loginError}</p>}
+      }
       {protectedData && (
         <div>
           <h3>Protected Data:</h3>
@@ -113,6 +114,7 @@ export default function Home() {
           <button type="submit" style={{ padding: '10px' }}>Get Weather</button>
         </form>
         {error && <p style={{ color: 'red' }}>{error}</p>}
+        }
         {weather && (
           <div>
             <h2 style={{ color: 'red' }}>{weather.location.name}, {weather.location.country}</h2>
