@@ -112,9 +112,9 @@ function App() {
       {error && <p style={{ color: 'red' }}>{error}</p>}
       {weather && (
         <div>
-          <h2>{weather.location.name}, {weather.location.country}</h2>
-          <p>Temperature: {weather.current.temp_c}°C</p>
-          <p>Condition: {weather.current.condition.text}</p>
+          <h2 style={{ color: 'red' }}>{weather.location.name}, {weather.location.country}</h2>
+          <p style={{ color: 'blue' }}>Temperature: {weather.current.temp_c}°C</p>
+          <p style={{ color: 'green' }}>Condition: {weather.current.condition.text}</p>
           <img src={weather.current.condition.icon} alt={weather.current.condition.text} />
         </div>
       )}
