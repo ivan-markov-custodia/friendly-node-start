@@ -98,26 +98,28 @@ function App() {
         </div>
       )}
       <hr style={{ margin: '20px 0' }} />
-      <h1>Weather App</h1>
-      <form onSubmit={fetchWeather} style={{ marginBottom: '20px' }}>
-        <input
-          type="text"
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-          placeholder="Enter city"
-          style={{ padding: '10px', width: 'calc(100% - 110px)', marginRight: '10px' }}
-        />
-        <button type="submit" style={{ padding: '10px' }}>Get Weather</button>
-      </form>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {weather && (
-        <div>
-          <h2 style={{ color: 'red' }}>{weather.location.name}, {weather.location.country}</h2>
-          <p style={{ color: 'blue' }}>Temperature: {weather.current.temp_c}°C</p>
-          <p style={{ color: 'green' }}>Condition: {weather.current.condition.text}</p>
-          <img src={weather.current.condition.icon} alt={weather.current.condition.text} />
-        </div>
-      )}
+      <div style={{ textAlign: 'center' }}>
+        <h1>Weather App</h1>
+        <form onSubmit={fetchWeather} style={{ marginBottom: '20px' }}>
+          <input
+            type="text"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+            placeholder="Enter city"
+            style={{ padding: '10px', width: 'calc(100% - 110px)', marginRight: '10px' }}
+          />
+          <button type="submit" style={{ padding: '10px' }}>Get Weather</button>
+        </form>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+        {weather && (
+          <div>
+            <h2 style={{ color: 'red' }}>{weather.location.name}, {weather.location.country}</h2>
+            <p style={{ color: 'blue' }}>Temperature: {weather.current.temp_c}°C</p>
+            <p style={{ color: 'green' }}>Condition: {weather.current.condition.text}</p>
+            <img src={weather.current.condition.icon} alt={weather.current.condition.text} />
+          </div>
+        )}
+      </div>
     </div>
   );
 }
