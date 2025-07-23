@@ -1,0 +1,9 @@
+[[redirects]]
+  from = "/api/*"
+  to = "http://api.weatherapi.com/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/auth-api/*"
+  to = "https://lovable-backend-test-82a575c25107.herokuapp.com/:splat"
+  status = 200 
